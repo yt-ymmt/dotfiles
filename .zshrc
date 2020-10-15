@@ -110,9 +110,6 @@ eval "$(pyenv init -)"
 # git-completion
 fpath=(path/to/zsh-completions/src $fpath)
 
-# yarn
-export PATH="$PATH:`yarn global bin`"
-
 # docker
 # eval "$(docker-machine env default)"
 
@@ -121,6 +118,13 @@ export LANG=ja_JP.UTF-8
 
 # dorenv
 eval "$(direnv hook zsh)"
+
+# yarn
+# export PATH="$PATH:`yarn global bin`"
+
+# yvm
+export YVM_DIR=/usr/local/opt/yvm
+[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
