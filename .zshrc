@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/yamamoto/.oh-my-zsh
+export ZSH=/Users/$USER/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -97,10 +97,17 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/bin:$PATH"
 
 # nodebrew
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+#export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# nodeenv
+eval "$(nodenv init -)"
+export PATH="$HOME/.nodenv/bin:$PATH"
 
 # rbenv
-eval "$(rbenv init -)"
+if [ -e $HOME/.rbenv ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+fi
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -110,29 +117,21 @@ eval "$(pyenv init -)"
 # git-completion
 fpath=(path/to/zsh-completions/src $fpath)
 
+# yarn
+export PATH="$PATH:`yarn global bin`"
+
 # docker
 # eval "$(docker-machine env default)"
 
 # hyper
-export LANG=ja_JP.UTF-8
+# export LANG=ja_JP.UTF-8
 
 # dorenv
 eval "$(direnv hook zsh)"
-
-# yarn
-# export PATH="$PATH:`yarn global bin`"
 
 # yvm
 export YVM_DIR=/usr/local/opt/yvm
 [ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/yamamoto/.nodebrew/node/v8.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/yamamoto/.nodebrew/node/v8.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/yamamoto/.nodebrew/node/v8.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/yamamoto/.nodebrew/node/v8.9.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/yamamoto/.nodebrew/node/v10.15.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/yamamoto/.nodebrew/node/v10.15.3/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+# fish
+exec fish
