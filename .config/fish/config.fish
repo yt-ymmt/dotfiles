@@ -63,4 +63,12 @@ alias gstl 'git stash list'
 alias gstp 'git stash pop'
 alias gsts 'git stash show --text'
 
+# yvm
+set -x YVM_DIR /Users/yuta.yamamoto/.yvm
+[ -r $YVM_DIR/yvm.fish ]; and source $YVM_DIR/yvm.fish
 
+# rbenv
+status --is-interactive; and source (rbenv init -|psub)
+
+# nodenv
+eval (nodenv init - | source)
