@@ -63,12 +63,21 @@ alias gstl 'git stash list'
 alias gstp 'git stash pop'
 alias gsts 'git stash show --text'
 
-# yvm
-set -x YVM_DIR /Users/yuta.yamamoto/.yvm
-[ -r $YVM_DIR/yvm.fish ]; and source $YVM_DIR/yvm.fish
+alias rbf 'git diff staging --name-only -- \*.rb | xargs bundle exec rubocop -A'
 
-# rbenv
-status --is-interactive; and source (rbenv init -|psub)
+if status is-interactive
+    # Commands to run in interactive sessions can go here
 
-# nodenv
-eval (nodenv init - | source)
+    # Homebrew
+    eval (/opt/homebrew/bin/brew shellenv)
+
+    # yvm
+    set -x YVM_DIR /Users/yuta.yamamoto/.yvm
+    [ -r $YVM_DIR/yvm.fish ]; and source $YVM_DIR/yvm.fish
+
+    # rbenv
+    source (rbenv init -|psub)
+
+    # nodenv
+    eval (nodenv init - | source)
+end

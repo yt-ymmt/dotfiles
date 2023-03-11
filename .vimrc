@@ -136,27 +136,27 @@ if has("autocmd")
   augroup END
 endif
 
-if has('vim_starting')
+" if has('vim_starting')
     " 初回起動時のみruntimepathにNeoBundleのパスを指定する
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    " set runtimepath+=~/.vim/bundle/neobundle.vim/
 
     " NeoBundleが未インストールであればgit cloneする・・・・・・①
-    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-        echo "install NeoBundle..."
-        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
-    endif
-endif
+    " if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+        " echo "install NeoBundle..."
+        " :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+    " endif
+" endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+" call neobundle#begin(expand('~/.vim/bundle/'))
 
 " インストールするVimプラグインを以下に記述
 " NeoBundle自身を管理
-NeoBundleFetch 'Shougo/neobundle.vim'
+" NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------------------------------------------------
 " ここに追加したいVimプラグインを記述する
 
 " ステータスラインの表示内容強化
-NeoBundle 'itchyny/lightline.vim'
+" NeoBundle 'itchyny/lightline.vim'
 
 "----------------------------------------------------------
 " ステータスラインの設定
@@ -167,19 +167,19 @@ set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
 
 " 末尾の全角と半角の空白文字を赤くハイライト
-NeoBundle 'bronson/vim-trailing-whitespace'
+" NeoBundle 'bronson/vim-trailing-whitespace'
 
 
 " インデントの可視化
-NeoBundle 'Yggdroot/indentLine'
+" NeoBundle 'Yggdroot/indentLine'
 
 
 " 多機能セレクタ
-NeoBundle 'ctrlpvim/ctrlp.vim'
+" NeoBundle 'ctrlpvim/ctrlp.vim'
 " CtrlPの拡張プラグイン. 関数検索
-NeoBundle 'tacahiroy/ctrlp-funky'
+" NeoBundle 'tacahiroy/ctrlp-funky'
 " CtrlPの拡張プラグイン. コマンド履歴検索
-NeoBundle 'suy/vim-ctrlp-commandline'
+" NeoBundle 'suy/vim-ctrlp-commandline'
 
 "----------------------------------------------------------
 " CtrlPの設定
@@ -193,11 +193,11 @@ let g:ctrlp_extensions = ['funky', 'commandline'] " CtrlPの拡張として「fu
 command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
 
 " CtrlPFunkyの有効化
-let g:ctrlp_funky_matchtype = 'path' 
+let g:ctrlp_funky_matchtype = 'path'
 
 
 " CtrlPの検索にagを使う
-NeoBundle 'rking/ag.vim'
+" NeoBundle 'rking/ag.vim'
 
 "----------------------------------------------------------
 " ag.vimの設定
@@ -208,15 +208,15 @@ if executable('ag') " agが使える環境の場合
 endif
 
 " プロジェクトに入ってるESLintを読み込む
-NeoBundle 'pmsorhaindo/syntastic-local-eslint.vim'
+" NeoBundle 'pmsorhaindo/syntastic-local-eslint.vim'
 
 
 
 "----------------------------------------------------------
-call neobundle#end()
+" call neobundle#end()
 
 " ファイルタイプ別のVimプラグイン/インデントを有効にする
 filetype plugin indent on
 
 " 未インストールのVimプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
-NeoBundleCheck
+" NeoBundleCheck
