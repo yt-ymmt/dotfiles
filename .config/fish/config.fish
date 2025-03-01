@@ -72,8 +72,8 @@ if status is-interactive
     eval (/opt/homebrew/bin/brew shellenv)
 
     # yvm
-    set -x YVM_DIR /Users/yuta.yamamoto/.yvm
-    [ -r $YVM_DIR/yvm.fish ]; and source $YVM_DIR/yvm.fish
+    # set -x YVM_DIR /Users/yuta.yamamoto/.yvm
+    # [ -r $YVM_DIR/yvm.fish ]; and source $YVM_DIR/yvm.fish
 
     # rbenv
     source (rbenv init -|psub)
@@ -81,3 +81,20 @@ if status is-interactive
     # nodenv
     eval (nodenv init - | source)
 end
+
+# pnpm
+set -gx PNPM_HOME "/Users/yuta.yamamoto/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
+# hanica
+export DISABLE_SPRING=true
+
+# oke
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
