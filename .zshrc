@@ -1,137 +1,158 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# =====================================================
+# エイリアス設定
+# =====================================================
 
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/$USER/.oh-my-zsh
+alias tree="tree -NC"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="wedisagree"
+# Git エイリアス
+alias g="git"
+alias ga="git add"
+alias gaa="git add --all"
+alias gb="git branch"
+alias gba="git branch -a"
+alias gbd="git branch -d"
+alias gc="git commit -v"
+alias gc!="git commit -v --amend"
+alias gcmsg="git commit -m"
+alias gcb="git checkout -b"
+alias gco="git checkout"
+alias gcm="git checkout master"
+alias gcd="git checkout develop"
+alias gcp="git cherry-pick"
+alias gcpa="git cherry-pick --abort"
+alias gcpc="git cherry-pick --continue"
+alias gd="git diff"
+alias gdca="git diff --cached"
+alias gdct="git describe --tags $(git rev-list --tags --max-count=1)"
+alias gdt="git diff-tree --no-commit-id --name-only -r"
+alias gdw="git diff --word-diff"
+alias gf="git fetch"
+alias gfa="git fetch --all --prune"
+alias gfo="git fetch origin"
 
-# Set list of themes to load
-# Setting this variable when ZSH_THEME=random
-# cause zsh load theme from this variable instead of
-# looking in ~/.oh-my-zsh/themes/
-# An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Git ログ系エイリアス
+alias gl="git pull"
+alias glg="git log --stat"
+alias glgp="git log --stat -p"
+alias glgg="git log --graph"
+alias glgga="git log --graph --decorate --all"
+alias glgm="git log --graph --max-count=10"
+alias glo="git log --oneline --decorate"
+alias glol="git log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glola="git log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
+alias glog="git log --oneline --decorate --graph"
+alias gloga="git log --oneline --decorate --graph --all"
+alias glp="_git_log_prettily"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+alias grh="git reset HEAD"
+alias grhh="git reset HEAD --hard"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+alias gss="git status -s"
+alias gst="git status"
+alias gsta="git stash save"
+alias gstaa="git stash apply"
+alias gstc="git stash clear"
+alias gstd="git stash drop"
+alias gstl="git stash list"
+alias gstp="git stash pop"
+alias gsts="git stash show --text"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+alias gsw="git switch"
+alias gswc="git switch -c"
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+alias rbf="git diff staging --name-only -- \*.rb | xargs bundle exec rubocop -A"
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# =====================================================
+# 関数定義
+# =====================================================
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+git_current_branch() {
+  git branch --show-current
+}
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+alias ggpull="git pull origin $(git_current_branch)"
+alias ggpush="git push origin $(git_current_branch)"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# =====================================================
+# PATH / 環境変数 & 初期化
+# =====================================================
 
 # Homebrew
-export PATH="/usr/local/bin:$PATH"
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
-# nodebrew
-#export PATH=$HOME/.nodebrew/current/bin:$PATH
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
-# nodeenv
-eval "$(nodenv init -)"
-export PATH="$HOME/.nodenv/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# hanica
+export DISABLE_SPRING=true
+
+# oke
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Hari / Warp CA
+export NODE_EXTRA_CA_CERTS="$HOME/.local/share/warp/cloudflare.crt"
+
+# =====================================================
+# zsh 補完 & プラグイン
+# =====================================================
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  autoload -Uz compinit && compinit
+fi
+
+# =====================================================
+# バージョン管理ツール
+# =====================================================
+
+# nodenv
+if command -v nodenv >/dev/null 2>&1; then
+  eval "$(nodenv init - zsh)"
+fi
 
 # rbenv
-if [ -e $HOME/.rbenv ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
+if command -v rbenv >/dev/null 2>&1; then
+  eval "$(rbenv init - zsh)"
 fi
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init - zsh)"
+fi
 
-# git-completion
-fpath=(path/to/zsh-completions/src $fpath)
-
-# yarn
-export PATH="$PATH:`yarn global bin`"
-
-# docker
-# eval "$(docker-machine env default)"
-
-# hyper
-# export LANG=ja_JP.UTF-8
-
-# dorenv
+# direnv
 eval "$(direnv hook zsh)"
 
-# yvm
-export YVM_DIR=/usr/local/opt/yvm
-[ -r $YVM_DIR/yvm.sh ] && . $YVM_DIR/yvm.sh
+# =====================================================
+# Claude Code: Homebrew版を使う（nodenv shimに負けないように）
+# =====================================================
+if [ -x /opt/homebrew/bin/claude ]; then
+  alias claude="/opt/homebrew/bin/claude"
+elif [ -x /usr/local/bin/claude ]; then
+  alias claude="/usr/local/bin/claude"
+fi
 
-# fish
-exec fish
+# fzf シェル統合（Ctrl+R: 履歴検索, Ctrl+T: ファイル検索, Alt+C: ディレクトリ移動）
+source <(fzf --zsh)
+
+# Starship プロンプト
+eval "$(starship init zsh)"
+
+hash -r
+
+# =====================================================
+# シークレット環境変数（.secrets は .gitignore 対象）
+# =====================================================
+[ -f ~/.secrets ] && source ~/.secrets

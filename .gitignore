@@ -1,7 +1,10 @@
 .DS_Store
 .aws/
 .ssh/
+.secrets
 .config/AWSVPNClient/
 .config/gh/
 .config/github-copilot/
 .config/gcloud/
+CLAUDE.local.md
+.claude/
