@@ -2,7 +2,6 @@
 
 set -eu
 
-# 実行場所のディレクトリを取得
 THIS_DIR=$HOME/dotfiles
 
 if [ ! -d "$THIS_DIR" ]; then
@@ -16,7 +15,7 @@ else
     echo
 fi
 
-cd $THIS_DIR
+cd "$THIS_DIR"
 
 echo "start setup..."
 
@@ -26,14 +25,30 @@ do
     [[ "$f" == ".aws" ]] && continue
     [[ "$f" == ".git" ]] && continue
     [[ "$f" == ".ssh" ]] && continue
+    [[ "$f" == ".gitignore" ]] && continue
+    [[ "$f" == ".secrets" ]] && continue
+    [[ "$f" == ".secrets.example" ]] && continue
+    [[ "$f" == ".claude" ]] && continue
+    [[ "$f" == ".config" ]] && continue
 
     ln -snfv "$THIS_DIR/$f" ~/
 done
 
+# .config 配下のファイルを個別にリンク（~/.config 自体は置換しない）
+mkdir -p ~/.config
+for f in .config/*; do
+    ln -snfv "$THIS_DIR/$f" ~/"$f"
+done
+
+# シークレットファイルの初期設定
+if [ ! -f ~/.secrets ]; then
+    cp "$THIS_DIR/.secrets.example" ~/.secrets
+    echo "Created ~/.secrets from template. Please edit it with your actual tokens."
+fi
+
 # install homebrew
 if ! command -v brew > /dev/null 2>&1; then
-    # Install homebrew: https://brew.sh/
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo
 fi
 brew bundle
